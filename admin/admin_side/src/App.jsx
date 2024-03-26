@@ -32,7 +32,10 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
-        {admin && (
+        <Route path="/register">
+            {user ? <Redirect to="/" /> : <Register />}
+          </Route>
+        {admin ? (
           <>
             <Topbar />
             <div className="container">
@@ -58,12 +61,10 @@ function App() {
               <Route path="/newproduct">
                 <NewProduct />
               </Route>
-              <Route path="/register">
-            {user ? <Redirect to="/" /> : <Register />}
-          </Route>
+              
             </div>
           </>
-        )}
+        ): <Login/>}
       </Switch>
    
     </BrowserRouter>
