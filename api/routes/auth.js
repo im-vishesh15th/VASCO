@@ -5,7 +5,10 @@ const jwt = require("jsonwebtoken");
 
 // REGISTER
 router.post("/register", async (req, res) => {
-  
+  if(!req.body.img)
+  {
+    req.body.img="https://picsum.photos/200/300";
+  }
   const { username, email, password ,img} = req.body;
 
   try {
