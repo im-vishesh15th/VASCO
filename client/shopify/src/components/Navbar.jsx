@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-background-color:pink;
+background-color:black;
   padding: 10px 20px;
   display: flex;
   align-items: center;
@@ -39,7 +39,7 @@ const Language = styled.span`
 `;
 
 const SearchContainer = styled.div`
-  border: 0.5px solid black;
+  border: 0.5px solid #04e762;
   display: flex;
   align-items: center;
   margin-left: 25px;
@@ -48,8 +48,8 @@ const SearchContainer = styled.div`
 
 const Input = styled.input`
   border: none;
-  color: black;
-  background-color: pink;
+  color: white;
+  background-color: black;
   ${mobile({ width: "50px" })}
 `;
 
@@ -71,7 +71,7 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  background-color:pink;
+  background-color:black;
   height: 10px;
   border-radius: 20%;
   font-size: 14px;
@@ -151,23 +151,23 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
+          <Language style={{color:'#04e762'}}>EN</Language>
           <SearchContainer>
             <Input placeholder="Search" />
-            <Search style={{ color: "black", fontSize: 16 }} />
+            <Search style={{ color: "#04e762", fontSize: 16 }} />
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>VASCO.</Logo>
+          <Logo style={{color:'#04e762'}}>VASCO.</Logo>
         </Center>
         <Right>
-        <Link style={{ color:'black', textDecoration: 'none',outline: 'none'}} to="/register">
+        <Link style={{ color:'#04e762', textDecoration: 'none',outline: 'none'}} to="/register">
           <MenuItem>REGISTER</MenuItem>
           </Link>
-          <Link  style={{ color:'black',textDecoration: 'none',outline: 'none'}} to="/login">
+          <Link  style={{ color:'#04e762',textDecoration: 'none',outline: 'none'}} to="/login">
           <MenuItem>SIGN IN</MenuItem>
           </Link>
-          <Link style={{ color:'black',textDecoration: 'none',outline: 'none'}} to="/cart">
+          <Link style={{ color:'#04e762',textDecoration: 'none',outline: 'none'}} to="/cart">
           <MenuItem>
              <Badge badgeContent={quantity} color="info"> 
              <ShoppingCartOutlined/>
@@ -175,7 +175,7 @@ const Navbar = () => {
           </MenuItem>
           </Link>
           <MenuItem>
-          <button style={{backgroundColor:'pink',color:'black',border:'none'}} onClick={()=>manage() }>Logout</button>
+          <button style={{backgroundColor:'black',color:'#04e762',border:'none'}} onClick={()=>manage() }>Logout</button>
           </MenuItem>
           <MenuItem>
           
