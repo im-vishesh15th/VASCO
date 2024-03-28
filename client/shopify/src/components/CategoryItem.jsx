@@ -29,7 +29,7 @@ const Info = styled.div`
 `;
 
 const Title = styled.h1`
-  color: whitesmoke ;
+  color: black ;
  text-decoration: underline;
   margin-bottom: 20px;
   font-size: 35px;
