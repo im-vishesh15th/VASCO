@@ -1,7 +1,16 @@
+import React, { useState } from "react";
+import "./navbar.css";
+import {
+  FaFacebookSquare,
+  FaInstagramSquare,
+  FaYoutubeSquare,
+} from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
+
+import { NavLink } from "react-router-dom";
 import {  ShoppingCart } from "@mui/icons-material";
 import { Avatar,Badge } from "@mui/material";
 import { Search, ShoppingCartOutlined } from "@mui/icons-material";
-import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useDispatch,useSelector } from "react-redux";
@@ -9,7 +18,6 @@ import { Link } from "react-router-dom";
 import { logout } from "../redux/apiCalls";
 import { userRequest } from "../requestMethods";
 
-//import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
   height: 60px;
@@ -77,12 +85,19 @@ const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
-  padding: 20px;
+  padding: 30px;
+  text-align: center;
+  &:hover {
+    background-color: #04e762;
+  }
+  
   
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
 const Navbar = () => {
+
+
   const cart = useSelector((state) => state.cart);
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
@@ -147,44 +162,68 @@ const Navbar = () => {
   };
   const quantity = useSelector(state=>state.cart.quantity)
   const img=useSelector(state=>state.user.currentUser?state.user.currentUser.img:"");
+  const [showMediaIcons, setShowMediaIcons] = useState(false);
+
+
   return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <Language style={{color:'#04e762'}}>EN</Language>
+    <>
+      <nav className="main-nav">
+       
+        <div className="logo" >
+        <Logo style={{ fontSize:"40px", color:'#04e762'}}>VASCO.</Logo>
+        </div>
+
+        {/* 2nd menu part  */}
+        <div
+          className={
+            showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"
+          }>
+          <ul>
+            <li>
+              <NavLink  style={{color:"#04e762"}} to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink  style={{color:"#04e762"}} to="/login">Login</NavLink>
+            </li>
+            <li>
+              <NavLink  style={{color:"#04e762"}} to="/register">Register</NavLink>
+            </li>
+            <li>
+              <Link  style={{color:"#04e762"}} to="/cart">
+             <Badge badgeContent={quantity} color="info"> 
+             <ShoppingCartOutlined style={{fontSize:"25px"}}/>
+           </Badge>
+              </Link>
+            </li>
+            <li>
+          <button  style={ {backgroundColor:'black',color:'#04e762',border:'solid #04e762',padding:"5px"}} onClick={()=>manage() }>Logout</button>
+          </li>
+          <li><Avatar src={img} /></li>
+          </ul>
+        </div>
+
+        <div className="social-media">
+          <ul className="social-media-desktop">
+            <li>
+          
           <SearchContainer>
             <Input placeholder="Search" />
             <Search style={{ color: "#04e762", fontSize: 16 }} />
           </SearchContainer>
-        </Left>
-        <Center>
-          <Logo style={{color:'#04e762'}}>VASCO.</Logo>
-        </Center>
-        <Right>
-        <Link style={{ color:'#04e762', textDecoration: 'none',outline: 'none'}} to="/register">
-          <MenuItem>REGISTER</MenuItem>
-          </Link>
-          <Link  style={{ color:'#04e762',textDecoration: 'none',outline: 'none'}} to="/login">
-          <MenuItem>SIGN IN</MenuItem>
-          </Link>
-          <Link style={{ color:'#04e762',textDecoration: 'none',outline: 'none'}} to="/cart">
-          <MenuItem>
-             <Badge badgeContent={quantity} color="info"> 
-             <ShoppingCartOutlined/>
-           </Badge>
-          </MenuItem>
-          </Link>
-          <MenuItem>
-          <button style={{backgroundColor:'black',color:'#04e762',border:'none'}} onClick={()=>manage() }>Logout</button>
-          </MenuItem>
-          <MenuItem>
-          
-          <Avatar src={img} />
-          
-          </MenuItem>
-        </Right>
-      </Wrapper>
-    </Container>
+          </li>
+          <li style={{ color: "#04e762"}}>EN</li>
+         
+          </ul>
+          <div className="hamburger-menu">
+            <a href="#" onClick={() => setShowMediaIcons(!showMediaIcons)}>
+              <GiHamburgerMenu style={{color:"#04e762"}} />
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      
+    </>
   );
 };
 
