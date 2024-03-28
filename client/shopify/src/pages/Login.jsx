@@ -13,7 +13,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://c0.wallpaperflare.com/preview/414/12/959/nature-landscape-mountains-summit.jpg")
       center;
   background-size: cover;
   display: flex;
