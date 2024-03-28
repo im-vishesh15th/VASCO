@@ -4,7 +4,9 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 
 const Info = styled.div`
@@ -71,19 +73,25 @@ const Icon = styled.div`
 `;
 
 const Product = ({ item }) => {
-  const handle = ()=>{}
+ const history= useHistory();
+  const manage = ()=>{
+   history.push(`/product/${item._id}`);
+   window.location.reload();
+
+  };
+
   return (
     <Container>
       <Circle />
       <Image src={item.img} />
       <Info>
-        <Icon onClick={()=>handle} >
+        <Icon>
           <ShoppingCartOutlined />
         </Icon>
-        <Icon>
-          <Link to={`/product/${item._id}`}>
+        <Icon onClick={()=>manage()}>
+        
           <SearchOutlined />
-          </Link>
+
         </Icon>
         <Icon>
           <FavoriteBorderOutlined />
