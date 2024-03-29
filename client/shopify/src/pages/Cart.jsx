@@ -56,12 +56,21 @@ const TopText = styled.span`
   text-decoration: underline;
   cursor: pointer;
   margin: 0px 10px;
+  @media (max-width: 900px) {
+    display:none;
+  }
 `;
 
 const Bottom = styled.div`
   display: flex;
+  flex-direction:row;
   justify-content: space-between;
-  ${mobile({ flexDirection: "column" })}
+  @media (max-width: 2000px) {
+    flex-direction:row;
+  }
+  @media (max-width: 900px) {
+    flex-direction:column;
+  }
 `;
 
 const Info = styled.div`
