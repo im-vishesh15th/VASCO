@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const CartSchema = new mongoose.Schema(
   {
     userId: { type: String, required: true },
@@ -17,7 +16,11 @@ const CartSchema = new mongoose.Schema(
         img: { type: String, required: true },
         color: { type: Array },
         price: { type: Number, required: true },
-       
+        uid:{
+          type:String,
+          required:true,
+         
+        }
 
       },
     ],
