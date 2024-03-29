@@ -10,6 +10,7 @@ const Container = styled.div`
   font-size: 18px;
   font-weight: 500;
   margin-bottom:20px;
+  text-shadow:#eb116f 1.5px 2px;
   
 `;
 
