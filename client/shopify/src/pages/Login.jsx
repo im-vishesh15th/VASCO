@@ -79,7 +79,7 @@ const Login = () => {
   const handleClick = (e) => {
     e.preventDefault();
     const payload = { username, password }; // Construct your payload here
-    console.log("Dispatching login action with payload:", payload)
+    
     
     login(dispatch, payload);
   };
