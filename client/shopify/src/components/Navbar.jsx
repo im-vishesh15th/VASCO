@@ -17,7 +17,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../redux/apiCalls";
 import { userRequest } from "../requestMethods";
-
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   height: 60px;
@@ -97,14 +97,18 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
 
+  const history=useHistory();
 
   const cart = useSelector((state) => state.cart);
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
-  //const { isFetching, error } = useSelector((state) => state.user);
+ 
 
-
-
+const click=(v)=>{
+    console.log(v);
+    history.push(`${v}`);
+   window.location.reload();
+  }
   const manage = (e) => {
   
     const handleClick = async () => {
@@ -182,13 +186,13 @@ const Navbar = () => {
           }>
           <ul>
             <li>
-              <NavLink  style={{color:"#04e762"}} to="/">Home</NavLink>
+              <NavLink  onClick={()=>click("/")} style={{color:"#04e762"}} to="/">Home</NavLink>
             </li>
             <li>
-              <NavLink  style={{color:"#04e762"}} to="/login">Login</NavLink>
+              <NavLink onClick={()=>click("/login")} style={{color:"#04e762"}} to="/login">Login</NavLink>
             </li>
             <li>
-              <NavLink  style={{color:"#04e762"}} to="/register">Register</NavLink>
+              <NavLink onClick={()=>click("/register")} style={{color:"#04e762"}} to="/register">Register</NavLink>
             </li>
             <li>
               <Link  style={{color:"#04e762"}} to="/cart">
