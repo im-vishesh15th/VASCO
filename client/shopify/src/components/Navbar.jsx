@@ -198,7 +198,7 @@ const Navbar = () => {
             <li>
           <button  style={ {backgroundColor:'black',color:'#04e762',border:'solid #04e762',padding:"5px"}} onClick={()=>manage() }>Logout</button>
           </li>
-          <li><Avatar src={img} /></li>
+          <li><Avatar style={{height: '60px', width: '60px' }} src={img} /></li>
           </ul>
         </div>
 
