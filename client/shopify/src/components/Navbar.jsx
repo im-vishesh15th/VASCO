@@ -110,7 +110,8 @@ const click=(v)=>{
    window.location.reload();
   }
   const manage = (e) => {
-  
+    if(currentUser)
+    {
     const handleClick = async () => {
       try {
         
@@ -159,12 +160,13 @@ const click=(v)=>{
         console.log("Error handling click:", error);
       }
     };
-
+   handleClick();
     console.log("loggingout");
     logout(dispatch);
      
     
-    handleClick();
+    
+    };
   };
   const quantity = useSelector(state=>state.cart.quantity)
   const img=useSelector(state=>state.user.currentUser?state.user.currentUser.img:"");
