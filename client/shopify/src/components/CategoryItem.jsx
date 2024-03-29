@@ -30,6 +30,7 @@ const Info = styled.div`
 
 const Title = styled.h1`
   color: black ;
+  text-shadow: red 2px 2px;
  text-decoration: underline;
   margin-bottom: 20px;
   font-size: 35px;
