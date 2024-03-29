@@ -5,7 +5,7 @@ import { userRequest } from "../requestMethods";
 const add=(prod,obj)=>{
   for(var i=0;i<prod.length;i++)
   {
-    if(prod[i].productId==obj.productId)
+    if(prod[i].uid==obj.uid)
     {  
       prod[i].quantity++;
       return;
@@ -15,7 +15,7 @@ const add=(prod,obj)=>{
   const rem=(prod,obj)=>{
     for(var i=0;i<prod.length;i++)
     {
-      if(prod[i].productId==obj.productId)
+      if(prod[i].uid==obj.uid)
       {  
         prod[i].quantity--;
         return;
@@ -28,7 +28,7 @@ const add=(prod,obj)=>{
 const remove=(prod,obj)=>{
   for(var i=0;i<prod.length;i++)
   {
-    if(prod[i].productId==obj.productId)
+    if(prod[i].uid==obj.uid)
     {  
       prod.splice(i,1);
       return;
