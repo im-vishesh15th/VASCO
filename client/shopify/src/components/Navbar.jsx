@@ -129,7 +129,8 @@ const Navbar = () => {
               quantity: item.quantity,
               img: item.img,
               color: item.color,
-              price: item.price
+              price: item.price,
+              uid: item.uid
             })),
           });
           console.log("Updated cart:", updatedCart);
@@ -144,7 +145,8 @@ const Navbar = () => {
               quantity: item.quantity,
               img: item.img,
               color: item.color,
-              price: item.price
+              price: item.price,
+              uid: item.uid
             })),
           });
           console.log("New cart:", newCart);
