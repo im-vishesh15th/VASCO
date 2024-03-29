@@ -12,7 +12,7 @@ import  { useHistory }  from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { editProductAdd,editProductRemove,removeProduct} from "../redux/cartRedux";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { useLocation } from "react-router-dom";
 
 
 //import { userRequest } from "../requestMethods";
@@ -320,7 +320,6 @@ const Cart = () => {
             <TopText>Shopping Bag({cart.quantity})</TopText>
             <TopText>Your Wishlist (4)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
@@ -383,8 +382,10 @@ const Cart = () => {
               token={onToken}
               stripeKey={KEY}
             >
-              <Button>CHECKOUT NOW</Button>
+              {currentUser?<Button>CHECKOUT NOW</Button>: <></>
+            }
             </StripeCheckout>
+             {!currentUser ?<TopButton onClick={()=>(alert("Kindly Login First to Proceed Further"))} type="filled">CHECKOUT NOW</TopButton>:<></>}
           </Summary>
         </Bottom>
       </Wrapper>
