@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 
 
 const Container = styled.div``;
@@ -154,9 +155,9 @@ const Product = () => {
 
   const handleClick = async () => {
     try{
-
+      const uid = crypto.randomUUID();
     dispatch(
-      addProduct({ ...product, quantity, color, size })
+      addProduct({ ...product, quantity, color, size ,uid})
     );
         
         
