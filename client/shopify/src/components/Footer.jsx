@@ -5,7 +5,7 @@ import {
   Phone,
   Pinterest,
   Room,
-  Twitter,
+  XIcon
 } from "@mui/icons-material";
 import styled from "styled-components";
 import { mobile } from "../responsive";
@@ -93,15 +93,21 @@ const Footer = () => {
           This Is A PREMIUM  MEN ONLY Clothing Brand
         </Desc>
         <SocialContainer>
+          <a href="https://www.facebook.com/vishesh.gupta.712161">
           <SocialIcon color="3B5999">
             <Facebook />
+            </a>
+             <a href="https://www.instagram.com/im_vishesh_/">
           </SocialIcon>
           <SocialIcon color="E4405F">
             <Instagram />
           </SocialIcon>
-          <SocialIcon color="55ACEE">
-            <Twitter />
+            </a>
+          <a href="https://twitter.com/vishesh15th">
+          <SocialIcon color="000000">
+            <XIcon />
           </SocialIcon>
+            </a>
           
         </SocialContainer>
       </Left>
