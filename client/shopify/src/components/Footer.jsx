@@ -5,8 +5,6 @@ import {
   Phone,
   Pinterest,
   Room,
-
-  
 } from "@mui/icons-material";
 import XIcon from '@mui/icons-material/X';
 import styled from "styled-components";
