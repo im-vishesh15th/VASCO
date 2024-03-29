@@ -23,20 +23,22 @@ const Info = styled.div`
   justify-content: center;
   transition: all 0.5s ease;
   cursor: pointer;
-  border-radius: 20%;
+  border-radius: 10%;
 `;
 
 const Container = styled.div`
   flex: 1;
   margin: 5px;
   min-width: 280px;
+ 
+
   height: 350px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #f5fbfd;
   position: relative;
- border-radius: 20%;
+ border-radius: 10%;
   &:hover ${Info}{
     opacity: 1;
   }
@@ -53,6 +55,8 @@ const Circle = styled.div`
 const Image = styled.img`
   height: 75%;
   z-index: 2;
+  object-fit:contain;
+  
   
 `;
 
@@ -85,6 +89,7 @@ const Product = ({ item }) => {
       <Circle />
       <Image src={item.img} />
       <Info>
+       
         <Icon>
           <ShoppingCartOutlined />
         </Icon>
@@ -96,6 +101,7 @@ const Product = ({ item }) => {
         <Icon>
           <FavoriteBorderOutlined />
         </Icon>
+        
       </Info>
     </Container>
   );
