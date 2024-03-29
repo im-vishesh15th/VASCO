@@ -3,6 +3,7 @@ import { mobile } from "../responsive";
 import axios from "axios";
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 const Container = styled.div`
@@ -59,7 +60,7 @@ const Button = styled.button`
 `;
 
 const Register = () => {
-
+const history=useHistory();
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -80,8 +81,8 @@ const Register = () => {
         userData
       );
       
-      <Redirect to="/login" />
-      console.log(response.data); // Log the response data if needed
+      history.push("/login")
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
