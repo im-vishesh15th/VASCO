@@ -215,7 +215,8 @@ const Cart = () => {
                 quantity: item.quantity,
                 img: item.img,
                 color: item.color,
-                price: item.price
+                price: item.price,
+                uid: item.uid
               })),
             });
             console.log("Deleted Cart:",deleted);
@@ -228,7 +229,8 @@ const Cart = () => {
               quantity: item.quantity,
               img: item.img,
               color: item.color,
-              price: item.price
+              price: item.price,
+              uid: item.uid
             })),
           });
           console.log("Updated cart:", updatedCart);
