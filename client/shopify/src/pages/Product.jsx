@@ -12,13 +12,16 @@ import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 
-
 const Container = styled.div``;
 
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
-  ${mobile({ padding: "10px", flexDirection: "column" })}
+  @media (max-width: 900px) {
+    flex-direction:column;
+    padding:20px;
+    margin:20px
+  }
 `;
 
 const ImgContainer = styled.div`
@@ -26,9 +29,13 @@ const ImgContainer = styled.div`
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 90vh;
+  width:50vw;
+  height: 80vh;
   object-fit: fill;
+  @media (max-width: 900px) {
+    width:70vw;
+  height: 70vh;
+  }
  
  
 `;
@@ -130,7 +137,7 @@ const Product = () => {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState( "");
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -145,6 +152,7 @@ const Product = () => {
     getProduct();
   }, [id]);
 
+  
   const handleQuantity = (type) => {
     if (type === "dec") {
       quantity > 1 && setQuantity(quantity - 1);
@@ -156,8 +164,9 @@ const Product = () => {
   const handleClick = async () => {
     try{
       const uid = crypto.randomUUID();
+    
     dispatch(
-      addProduct({ ...product, quantity, color, size ,uid})
+      addProduct({ ...product, quantity, color, size,uid })
     );
         
         
@@ -189,7 +198,7 @@ const Product = () => {
               <FilterTitle>Size</FilterTitle>
               <FilterSize onChange={(e) => setSize(e.target.value)}>
                 {product.size?.map((s) => (
-                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                  <FilterSizeOption key={s} >{s}</FilterSizeOption>
                 ))}
               </FilterSize>
             </Filter>
