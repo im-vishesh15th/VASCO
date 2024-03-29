@@ -170,7 +170,7 @@ const Navbar = () => {
       <nav className="main-nav">
        
         <div className="logo" >
-        <Logo style={{ fontSize:"40px", color:'#04e762'}}>VASCO.</Logo>
+        <Logo style={{ textShadow: " #eb116f 4px 4px ",fontSize:"40px", color:'#04e762'}}>VASCO.</Logo>
         </div>
 
         {/* 2nd menu part  */}
