@@ -97,8 +97,8 @@ const Footer = () => {
           <SocialIcon color="3B5999">
             <Facebook />
             </a>
-             <a href="https://www.instagram.com/im_vishesh_/">
           </SocialIcon>
+           <a href="https://www.instagram.com/im_vishesh_/">
           <SocialIcon color="E4405F">
             <Instagram />
           </SocialIcon>
