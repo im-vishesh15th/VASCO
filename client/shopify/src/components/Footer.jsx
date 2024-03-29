@@ -96,13 +96,15 @@ const Footer = () => {
           <a href="https://www.facebook.com/vishesh.gupta.712161">
           <SocialIcon color="3B5999">
             <Facebook />
-            </a>
           </SocialIcon>
+            </a>
+          
            <a href="https://www.instagram.com/im_vishesh_/">
           <SocialIcon color="E4405F">
             <Instagram />
           </SocialIcon>
             </a>
+          
           <a href="https://twitter.com/vishesh15th">
           <SocialIcon color="000000">
             <XIcon />
