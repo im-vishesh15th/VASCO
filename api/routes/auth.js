@@ -5,17 +5,27 @@ const jwt = require("jsonwebtoken");
 
 // REGISTER
 router.post("/register", async (req, res) => {
+ 
   if(!req.body.img)
   {
     req.body.img="https://picsum.photos/200/300";
   }
+
   const { username, email, password ,img} = req.body;
 
   try {
     // Check if user already exists
+    if(req.body.password!==req.body.confirmPassword)
+    {
+      return res.status(400).json({ error: "Confirm Password is Different... " });
+    }
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ error: "Username already exists" });
+      return res.status(400).json({ error: "Username already exists..." });
+    }
+    const existingUserEmail = await User.findOne({ email });
+    if (existingUserEmail) {
+      return res.status(400).json({ error: "An Account Already exists with this Email-id... " });
     }
 
     // Hash password
@@ -29,7 +39,7 @@ router.post("/register", async (req, res) => {
     res.status(201).json(savedUser);
   } catch (err) {
    
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server eror" });
   }
 });
 
