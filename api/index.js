@@ -19,17 +19,7 @@ mongoose
     console.log(err);
   });
 
-const allowedOrigins = ['https://vasco-client-dvawjslkf-vishesh-guptas-projects.vercel.app'];
-  app.use(cors({
-    origin: function(origin, callback) {
-      // Check if the request origin is allowed
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    }
-  }));
+app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
