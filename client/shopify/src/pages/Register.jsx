@@ -77,7 +77,7 @@ const history=useHistory();
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://vasco-2.onrender.com/api/auth/register",
+        "https://vasco-psi.vercel.app/api/auth/register",
         userData
       );
       
