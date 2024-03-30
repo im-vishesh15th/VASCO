@@ -95,7 +95,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { isFetching, error } = useSelector((state) => state.user);
+  const { isFetching } = useSelector((state) => state.user);
   const history = useHistory();
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -103,6 +103,7 @@ const Login = () => {
     e.preventDefault();
     const payload = { username, password };
     login(dispatch, payload);
+    const { error } = useSelector((state) => state.user);
     setErrorMessage(error);
   };
 
