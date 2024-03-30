@@ -6,34 +6,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  background: url("https://img.freepik.com/free-vector/gradient-colorful-grainy-dynamic-background_52683-101908.jpg") center ;
-  background-repeat: no-repeat;
-  background-size: 100vw 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  background: url("https://img.freepik.com/free-vector/gradient-colorful-grainy-dynamic-background_52683-101908.jpg") center;
+  background-size: cover;
 `;
 
 const Wrapper = styled.div`
-  width: 40%;
-  height:auto;
+  width: 90%;
+  max-width: 400px;
   padding: 30px;
   background-color: rgba(0, 0, 0, 0.869);
   border-radius: 10px;
   box-shadow: 0px 0px 20px rgb(0, 229, 255);
-  ${mobile({ width: "80%" })}
+  ${mobile({ width: "80%", overflowY: "auto", maxHeight: "80vh" })}
 `;
 
 const Title = styled.h1`
-  font-size: 42px;
+  font-size: 28px;
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
   color: #04e762;
-  text-shadow:0px 0px 20px rgb(0, 229, 255)
-
+  text-shadow: 0px 0px 20px rgb(0, 229, 255);
 `;
 
 const Form = styled.form`
@@ -97,9 +95,10 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { isFetching,error} = useSelector((state) => state.user);
+  const { isFetching, error } = useSelector((state) => state.user);
   const history = useHistory();
-const [errorMessage,setErrorMessage]=useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const handleClick = (e) => {
     e.preventDefault();
     const payload = { username, password };
@@ -125,11 +124,13 @@ const [errorMessage,setErrorMessage]=useState(null);
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button onClick={handleClick} disabled={isFetching}>
-            {isFetching ? 'Logging in...' : 'LOGIN'}
+            {isFetching ? "Logging in..." : "LOGIN"}
           </Button>
           {error && <Error>{errorMessage}</Error>}
           <Link href="#">Forgot your password?</Link>
-          <Link href="#" onClick={() => history.push("/register")}>Create a new account</Link>
+          <Link href="#" onClick={() => history.push("/register")}>
+            Create a new account
+          </Link>
         </Form>
       </Wrapper>
     </Container>
