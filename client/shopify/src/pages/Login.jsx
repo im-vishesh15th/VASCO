@@ -127,7 +127,7 @@ const Login = () => {
           <Button onClick={handleClick} disabled={isFetching}>
             {isFetching ? "Logging in..." : "LOGIN"}
           </Button>
-          {error && <Error>{errorMessage}</Error>}
+          {errorMessage && <Error>{errorMessage}</Error>}
           <Link href="#">Forgot your password?</Link>
           <Link href="#" onClick={() => history.push("/register")}>
             Create a new account
