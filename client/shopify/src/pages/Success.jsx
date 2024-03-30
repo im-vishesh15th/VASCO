@@ -14,7 +14,7 @@ const Success = () => {
   useEffect(() => {
     const createOrder = async () => {
       try {
-        console.log("main hu kon");
+        
         console.log(data);
         console.log(cart);
         const res = await userRequest.post("/orders", {
