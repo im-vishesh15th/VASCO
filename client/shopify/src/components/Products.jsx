@@ -20,8 +20,8 @@ const Products = ({ cat, filters, sort }) => {
       try {
         const res = await axios.get(
           cat
-            ? `https://vasco-2.onrender.com/api/products?category=${cat}`
-            : "https://vasco-2.onrender.com/api/products"
+            ? `https://vasco-psi.vercel.app/api/products?category=${cat}`
+            : "https://vasco-psi.vercel.app/api/products"
         );
         setProducts(res.data);
       } catch (err) {}
