@@ -1,21 +1,14 @@
-import styled from "styled-components";
-import { mobile } from "../responsive";
-import axios from "axios";
 import { useState } from "react";
-import { Redirect } from "react-router-dom";
+import styled from "styled-components";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
-
-
+import {mobile} from "../responsive"
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("https://img.freepik.com/free-photo/nature-tranquil-beauty-reflected-calm-water-generative-ai_188544-12798.jpg")
-      center;
-  background-size: cover;
+  background: url("https://img.freepik.com/free-vector/gradient-colorful-grainy-dynamic-background_52683-101908.jpg") center ;
+  background-repeat: no-repeat;
+  background-size: 100vw 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,49 +16,88 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: 40%;
-  padding: 20px;
-  background-color: white;
-  ${mobile({ width: "75%" })}
+  height:auto;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.869);
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgb(0, 229, 255);
+  ${mobile({ width: "80%" })}
 `;
 
 const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 300;
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #04e762;
+  text-shadow:0px 0px 20px rgb(0, 229, 255)
 `;
 
 const Form = styled.form`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 `;
 
 const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
-  margin: 20px 10px 0px 0px;
-  padding: 10px;
+width: 100%;
+  padding: 15px;
+  margin: 15px 0px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #ffffff;
+  transition: background-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+    background-color: #f9f9f9;
+  }
 `;
 
 const Agreement = styled.span`
   font-size: 12px;
-  margin: 20px 0px;
+  margin-top: 20px;
+  color: #666;
+  &:hover {
+    color: #04e762;
+  }
 `;
 
 const Button = styled.button`
-  width: 40%;
+  width: 100%;
+  padding: 15px;
   border: none;
-  padding: 15px 20px;
-  background-color: teal;
+  border-radius: 5px;
+  background-color: #04e762;
   color: white;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
+  margin: 10px 0px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #8bf878;
+  }
+`;
+const Error = styled.span`
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 `;
 
 const Register = () => {
-const history=useHistory();
+  const history = useHistory();
+  const [error,setError]=useState(null);
   const [userData, setUserData] = useState({
+    name: "",
+    lastName: "",
     username: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
@@ -73,41 +105,64 @@ const history=useHistory();
       [name]: value,
     }));
   };
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async (e) => 
+  {
     e.preventDefault();
     try {
       const response = await axios.post(
         "https://vasco-2.onrender.com/api/auth/register",
         userData
       );
-      
-      history.push("/login")
+      console.log("Res="+response);
+      history.push("/login");
       window.location.reload();
-    } catch (error) {
-      console.error("Error:", error);
+    }
+     catch (error) {
+      setError(error.response.data.error);
+      console.error("Error:", error.response.data.error);
+     
     }
   };
+  const Link = styled.a`
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+  text-decoration: none;
 
+  &:hover {
+    color: #04e762;
+  }
+`;
   return (
     <Container>
       <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
+        <Title>Create an Account</Title>
         <Form>
-          <Input name="name" placeholder="name"  />
-          <Input placeholder="last name" />
-          <Input name="username" placeholder="username"  value={userData.username}
-          onChange={handleChange} />
-          <Input name="email" placeholder="email" value={userData.email}
-          onChange={handleChange}/>
-          <Input  name="password" placeholder="password" value={userData.password}
-          onChange={handleChange}/>
-          <Input name="confirmpassword" placeholder="confirm password"   value={userData.confirmpassword}
-          onChange={handleChange} />
+          <Input name="name" placeholder="First Name" onChange={handleChange} />
+          <Input name="lastName" placeholder="Last Name" onChange={handleChange} />
+          <Input name="username" placeholder="Username" onChange={handleChange} />
+          <Input name="email" placeholder="Email" onChange={handleChange} />
+          <Input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+          />
+          <Input
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            onChange={handleChange}
+          />
           <Agreement>
             By creating an account, I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
+            data in accordance with the <b>Privacy Policy</b>
           </Agreement>
-          <Button onClick={handleSubmit}>CREATE</Button>
+          <Link href="#" onClick={() => history.push("/login")}>Account Already Exists ?...</Link>
+          {error && <Error>{error}</Error>}
+          <Button onClick={handleSubmit}>Create</Button>
         </Form>
       </Wrapper>
     </Container>
