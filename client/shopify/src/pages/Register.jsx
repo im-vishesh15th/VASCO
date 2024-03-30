@@ -2,35 +2,34 @@ import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import {mobile} from "../responsive"
+
 const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: url("https://img.freepik.com/free-vector/gradient-colorful-grainy-dynamic-background_52683-101908.jpg") center ;
-  background-repeat: no-repeat;
-  background-size: 100vw 100vh;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  background: url("https://img.freepik.com/free-vector/gradient-colorful-grainy-dynamic-background_52683-101908.jpg") center;
+  background-size: cover;
 `;
 
 const Wrapper = styled.div`
-  width: 40%;
-  height:auto;
+margin:30px;
+  width: 90%;
+  max-width: 400px;
   padding: 30px;
   background-color: rgba(0, 0, 0, 0.869);
   border-radius: 10px;
   box-shadow: 0px 0px 20px rgb(0, 229, 255);
-  ${mobile({ width: "80%" })}
 `;
 
 const Title = styled.h1`
-  font-size: 42px;
+  font-size: 28px;
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
   color: #04e762;
-  text-shadow:0px 0px 20px rgb(0, 229, 255)
+  text-shadow: 0px 0px 20px rgb(0, 229, 255);
 `;
 
 const Form = styled.form`
@@ -39,7 +38,7 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-width: 100%;
+  width: 100%;
   padding: 15px;
   margin: 15px 0px;
   border: none;
@@ -80,15 +79,28 @@ const Button = styled.button`
     background-color: #8bf878;
   }
 `;
+
 const Error = styled.span`
   color: red;
   font-size: 14px;
   margin-top: 10px;
 `;
 
+const Link = styled.a`
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+  text-decoration: none;
+
+  &:hover {
+    color: #04e762;
+  }
+`;
+
 const Register = () => {
   const history = useHistory();
-  const [error,setError]=useState(null);
+  const [error, setError] = useState(null);
   const [userData, setUserData] = useState({
     name: "",
     lastName: "",
@@ -106,35 +118,22 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = async (e) => 
-  {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         "https://vasco-2.onrender.com/api/auth/register",
         userData
       );
-      console.log("Res="+response);
+      console.log("Res=" + response);
       history.push("/login");
       window.location.reload();
-    }
-     catch (error) {
+    } catch (error) {
       setError(error.response.data.error);
       console.error("Error:", error.response.data.error);
-     
     }
   };
-  const Link = styled.a`
-  text-align: center;
-  font-size: 14px;
-  color: #666;
-  margin-top: 10px;
-  text-decoration: none;
 
-  &:hover {
-    color: #04e762;
-  }
-`;
   return (
     <Container>
       <Wrapper>
