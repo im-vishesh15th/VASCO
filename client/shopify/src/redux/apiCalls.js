@@ -12,7 +12,7 @@ export const login = async (dispatch, user) => {
     dispatch(loginSuccess(res.data));
   } catch (err) {
     console.log(err);
-    dispatch(loginFailure());
+     dispatch(loginFailure({errorMessage:err.response.data.error}));
   }
 };
 
