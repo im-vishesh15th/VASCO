@@ -15,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     if (currentUser) {
       dispatch(fetchPreviousProducts(currentUser._id));
-       window.location.reload();
+       
     }
   }, [dispatch, currentUser]);
    
