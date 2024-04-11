@@ -24,7 +24,7 @@ const Products = ({ cat, filters, sort }) => {
             : "https://vasco-2.onrender.com/api/products"
         );
         setProducts(res.data);
-         window.location.reload();
+       
       } catch (err) {}
     };
     getProducts();
