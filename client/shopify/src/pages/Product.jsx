@@ -11,6 +11,8 @@ import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
+import Reviews from "../components/Reviews";
+import ReviewForm from "../components/ReviewForm";
 
 const Container = styled.div``;
 
@@ -18,9 +20,9 @@ const Wrapper = styled.div`
   padding: 50px;
   display: flex;
   @media (max-width: 900px) {
-    flex-direction:column;
-    padding:20px;
-    margin:20px
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px;
   }
 `;
 
@@ -29,16 +31,25 @@ const ImgContainer = styled.div`
 `;
 
 const Image = styled.img`
-  width:50vw;
+  width: 50vw;
   height: 80vh;
   object-fit: fill;
-  @media (max-width: 900px) {
-    width:70vw;
-  height: 70vh;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  @media (max-width: 978px) {
+    width: 70vw;
+    height: 70vh;
   }
- 
- 
 `;
+const ReviewsContainer = styled.div`
+  max-height: 500px; // Set a fixed height
+  overflow-y: auto; // Enable vertical scrolling
+  padding: 10px;
+  border: 1px solid #e0e0e0; // Optional: add a border to visually separate the reviews
+  border-radius: 10px;
+  margin: 20px; // Optional: add some margin to separate it from other elements
+`;
+
 
 const InfoContainer = styled.div`
   flex: 1;
@@ -85,6 +96,12 @@ const FilterColor = styled.div`
   background-color: ${(props) => props.color};
   margin: 0px 5px;
   cursor: pointer;
+  ${(props) =>
+    props.selected &&
+    `
+    border: 2.5px solid #04e762;
+    padding: 1px;
+  `}
 `;
 
 const FilterSize = styled.select`
@@ -137,9 +154,10 @@ const Product = () => {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
-  const [size, setSize] = useState( "");
+  const [size, setSize] = useState("");
+  const [reviews, setReviews] = useState([]);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -147,12 +165,26 @@ const Product = () => {
         setProduct(res.data);
         setSize(res.data.size[0]);
         setColor(res.data.color[0]);
-      } catch {}
+      } catch (err) {
+        console.error(err);
+      }
     };
     getProduct();
   }, [id]);
 
-  
+  useEffect(() => {
+    const getReviews = async () => {
+      try {
+        const res = await publicRequest.get(`/reviews/${id}`);
+        console.log(res);
+        setReviews(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getReviews();
+  }, [id]);
+
   const handleQuantity = (type) => {
     if (type === "dec") {
       quantity > 1 && setQuantity(quantity - 1);
@@ -161,20 +193,21 @@ const Product = () => {
     }
   };
 
-  const handleClick = async () => {
-    try{
-      const uid = crypto.randomUUID();
-    
-    dispatch(
-      addProduct({ ...product, quantity, color, size,uid })
-    );
-        
-        
-    
-  }catch{}
-   
-   
+  const handleReviewSubmitted = async () => {
+    const res = await publicRequest.get(`/reviews/${id}`);
+    setReviews(res.data);
   };
+
+  const handleClick = async () => {
+    try {
+      const uid = crypto.randomUUID();
+
+      dispatch(addProduct({ ...product, quantity, color, size, uid }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Container>
       <Navbar />
@@ -191,14 +224,19 @@ const Product = () => {
             <Filter>
               <FilterTitle>Color</FilterTitle>
               {product.color?.map((c) => (
-                <FilterColor color={c} key={c} onClick={() => setColor(c)} />
+                <FilterColor
+                  color={c}
+                  key={c}
+                  onClick={() => setColor(c)}
+                  selected={color === c}
+                />
               ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize onChange={(e) => setSize(e.target.value)}>
                 {product.size?.map((s) => (
-                  <FilterSizeOption key={s} >{s}</FilterSizeOption>
+                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
                 ))}
               </FilterSize>
             </Filter>
@@ -211,7 +249,12 @@ const Product = () => {
             </AmountContainer>
             <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
+          <ReviewForm productId={id} onReviewSubmitted={handleReviewSubmitted} />
+          <ReviewsContainer>
+            <Reviews reviews={reviews} />
+          </ReviewsContainer>
         </InfoContainer>
+
       </Wrapper>
       <Newsletter />
       <Footer />
