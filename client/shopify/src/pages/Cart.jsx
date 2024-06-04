@@ -229,7 +229,7 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            {currentUser ? <Button onClick={handlePayment}>CHECKOUT NOW 2</Button> : null}
+            {currentUser ? <Button onClick={handlePayment}>CHECKOUT NOW </Button> : null}
             {!currentUser ? <TopButton onClick={() => (alert("Kindly Login First to Proceed Further"))} type="filled">CHECKOUT NOW</TopButton> : null}
           </Summary>
         </Bottom>
