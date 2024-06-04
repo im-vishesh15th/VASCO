@@ -12,10 +12,11 @@ const Container = styled.div`
   margin-bottom:20px;
   text-shadow:#eb116f 1.5px 2px;
   
+  
 `;
 
 const Announcement = () => {
-  return <Container>Super Deal! Free Shipping on Orders Over $50</Container>;
+  return <Container><marquee scrollamount="10" >Super Deal! Free Shipping on Orders Over $75</marquee></Container>;
 };
 
 export default Announcement;
