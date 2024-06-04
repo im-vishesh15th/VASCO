@@ -4,6 +4,7 @@ import ProductList from "./pages/ProductList";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
+import Orders from "./pages/Orders";
 import {
   BrowserRouter,
   Switch,
@@ -13,6 +14,7 @@ import {
 import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import Fail from "./pages/Fail";
 
 
 
@@ -32,11 +34,17 @@ const App = () => {
           <Route path="/products/:category">
             <ProductList />
           </Route>
+          <Route  path="/orders/:userId">
+            <Orders/>
+            </Route>
           <Route path="/product/:id">
             <Product />
           </Route>
           <Route path="/cart">
             <Cart />
+          </Route>
+          <Route path="/fail">
+            <Fail />
           </Route>
           <Route path="/success">
             <Success />
@@ -47,6 +55,7 @@ const App = () => {
           <Route path="/register">
             {user ? <Redirect to="/" /> : <Register />}
           </Route>
+          
         </Switch>
         </BrowserRouter>
      
