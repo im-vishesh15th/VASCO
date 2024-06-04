@@ -26,8 +26,8 @@ router.post("/payment", async (req, res) => {
       shipping_address_collection: { allowed_countries: ['US', 'IN'] },
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: `http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}&order_id=${orderId}`,
-      cancel_url: `http://localhost:5173/fail?session_id={CHECKOUT_SESSION_ID}&order_id=${orderId}`,
+      success_url: `https://vasco-client-ui.vercel.app/success?session_id={CHECKOUT_SESSION_ID}&order_id=${orderId}`,
+      cancel_url: `https://vasco-client-ui.vercel.app/fail?session_id={CHECKOUT_SESSION_ID}&order_id=${orderId}`,
       line_items: lineItems,
     });
     console.log(session);
