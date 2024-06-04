@@ -21,6 +21,45 @@ li {
 
 /* 
  
+/* Search Container */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.search-result-item {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-result-item:hover {
+  background-color: #f0f0f0;
+}
 
 /* navbar style start  */
 
@@ -83,7 +122,7 @@ li {
   font-weight: 400;
   text-transform: uppercase;
   background: -webkit-linear-gradient(#eee, rgb(69, 57, 248));
-  -webkit-background-clip: text;
+  /* -webkit-background-clip: text; */
   -webkit-text-fill-color: transparent;
 }
 
@@ -102,8 +141,9 @@ li {
 }
 .menu-link ul li:hover > a {
   transform-origin: left;
-  color: rgba(0, 0, 3, 1);
+  color: rgb(0, 0, 0);
   text-decoration: underline;
+  
   transition: 0.5s;
 }
 
@@ -163,7 +203,7 @@ li {
 }
 
 /* responsive css style  */
-@media (max-width: 998px) {
+@media (max-width: 1200px) {
   .main-nav {
     height: 7rem;
     grid-template-columns: 2rem 2fr 3fr 2rem 2rem;
@@ -183,31 +223,40 @@ li {
     position: relative;
     z-index: 99;
     background-color: black;
+    
   }
 
   .mobile-menu-link {
     background-color: black;
-    height: 30rem;
+    height: 50rem;
     display: grid;
     grid-column: 2/5;
     align-items: center;
-    padding-left: 3rem;
+    padding-left: 50%;
     transition: all 2s linear;
     transform-origin: top;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
       rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+     
+  
   }
 
   .mobile-menu-link ul {
-    height: 30rem;
+    height: 50rem;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
     align-items: start;
+   
+  
   }
 
   .mobile-menu-link ul li:first-child {
     transition-delay: 0.2s;
+    
+  }
+  .mobile-menu-link ul li{
+    text-align:center;
     
   }
  

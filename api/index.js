@@ -9,6 +9,7 @@ const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const stripeRoute = require("./routes/stripe");
+const reviewRoute=require("./routes/review");
 const cors = require("cors");
 mongoose.set('strictQuery', false);
 
@@ -22,6 +23,7 @@ mongoose
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoute);
+app.use("/api/reviews",reviewRoute);
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);
