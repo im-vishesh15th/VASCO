@@ -1,23 +1,15 @@
 import React, { useState } from "react";
 import "./navbar.css";
-import {
-  FaFacebookSquare,
-  FaInstagramSquare,
-  FaYoutubeSquare,
-} from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-import { NavLink } from "react-router-dom";
-import {  ShoppingCart } from "@mui/icons-material";
-import { Avatar,Badge } from "@mui/material";
-import { Search, ShoppingCartOutlined } from "@mui/icons-material";
+import { NavLink, Link, useHistory } from "react-router-dom";
+import { ShoppingCartOutlined, Search } from "@mui/icons-material";
+import { Avatar, Badge } from "@mui/material";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { useDispatch,useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/apiCalls";
 import { userRequest } from "../requestMethods";
-import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   height: 60px;
@@ -26,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-background-color:black;
+  background-color: black;
   padding: 10px 20px;
   display: flex;
   align-items: center;
@@ -47,18 +39,66 @@ const Language = styled.span`
 `;
 
 const SearchContainer = styled.div`
-  border: 0.5px solid #04e762;
+  position: relative;
+  border: 1px solid #04e762;
   display: flex;
   align-items: center;
   margin-left: 25px;
   padding: 5px;
-`;
+  width: auto;
+  min-height: 35px;
+  height: auto;
+  min-width: 200px;
+  border-radius: 25px;
+  `;
 
 const Input = styled.input`
   border: none;
   color: white;
   background-color: black;
+  width: auto;
+  min-width: 200px;
+  min-height: 35px;
+  height: auto;
+  border-radius: 25px;
+  margin-right:5px;
+  padding: 10px;
+  
   ${mobile({ width: "50px" })}
+`;
+
+const SearchResults = styled.div`
+  position: absolute;
+  top: 35px;
+  background-color: white;
+  width: 175%;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 2;
+  margin-top: 23px;
+  margin-left:0px;
+  border-radius: 25px;
+`;
+
+const SearchResultItem = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 25px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c3c3c3e7;
+  }
+
+  img {
+    border-radius: 25px;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    object-fit: contain;
+  }
 `;
 
 const Center = styled.div`
@@ -70,6 +110,7 @@ const Logo = styled.h1`
   font-weight: bold;
   ${mobile({ fontSize: "24px" })}
 `;
+
 const Right = styled.div`
   flex: 1;
   display: flex;
@@ -79,7 +120,7 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  background-color:black;
+  background-color: black;
   height: 10px;
   border-radius: 20%;
   font-size: 14px;
@@ -90,147 +131,196 @@ const MenuItem = styled.div`
   &:hover {
     background-color: #04e762;
   }
-  
-  
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
+const Button = styled.button`
+  padding: 10px 10px;
+  font-size: 1.8rem;
+  color: #04e762;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #3b3838;
+    color: #ff0059;
+  }
+  ${mobile({ fontSize: "1.2rem", padding: "10px 30px" })}
+`;
+
 const Navbar = () => {
-
-  const history=useHistory();
-
+  const history = useHistory();
   const cart = useSelector((state) => state.cart);
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
- 
-
-const click=(v)=>{
-    console.log(v);
-    history.push(`${v}`);
-   window.location.reload();
-  }
-  const manage = (e) => {
-    if(currentUser)
-    {
-    const handleClick = async () => {
-      try {
-        
-        console.log(cart.products);
-       
-    
-        const existingCart = await userRequest.get(`/carts/find/${currentUser._id}`);
-        if (existingCart.data) {
-          // If a cart already exists, update the existing cart
-          if(cart.products.length===0)
-          {
-            const deleted=await userRequest.post(`/carts/delete/${existingCart.data._id}`,{});
-            console.log("Deleted Cart:",deleted);
-          }else{
-          const updatedCart = await userRequest.post(`/carts/${existingCart.data._id}`, {
-            userId: currentUser._id,
-            products: cart.products.map((item) => ({
-              productId: item._id,
-              title: item.title,
-              quantity: item.quantity,
-              img: item.img,
-              color: item.color,
-              price: item.price,
-              uid: item.uid
-            })),
-          });
-          console.log("Updated cart:", updatedCart);
-        }
-        } else {
-          // If no cart exists, create a new one
-          const newCart = await userRequest.post("/carts", {
-            userId: currentUser._id,
-            products: cart.products.map((item) => ({
-              productId: item._id,
-              title: item.title,
-              quantity: item.quantity,
-              img: item.img,
-              color: item.color,
-              price: item.price,
-              uid: item.uid
-            })),
-          });
-          console.log("New cart:", newCart);
-        }
-      } catch (error) {
-        console.log("Error handling click:", error);
-      }
-    };
-   handleClick();
-    console.log("loggingout");
-    logout(dispatch);
-     
-    
-    
-    };
-  };
-  const quantity = useSelector(state=>state.cart.quantity)
-  const img=useSelector(state=>state.user.currentUser?state.user.currentUser.img:"");
+  const quantity = useSelector((state) => state.cart.quantity);
+  const img = useSelector((state) => state.user.currentUser ? state.user.currentUser.img : "");
   const [showMediaIcons, setShowMediaIcons] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const handleSearch = async (query) => {
+    try {
+      const res = await userRequest.get(`/products/search?q=${query}`);
+      setSearchResults(res.data);
+    } catch (error) {
+      console.error("Error searching products:", error);
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    if (query.length > 2) {
+      handleSearch(query);
+    } else {
+      setSearchResults([]);
+    }
+  };
+
+  const handleResultClick = (productId) => {
+    history.push(`/product/${productId}`);
+    setSearchResults([]);
+    setSearchQuery("");
+  };
+
+  const handleLogout = () => {
+    if (currentUser) {
+      logout(dispatch);
+      history.push("/");
+    }
+  };
+
+  const manage = (e) => {
+    if (currentUser) {
+      const handleClick = async () => {
+        try {
+          const existingCart = await userRequest.get(`/carts/find/${currentUser._id}`);
+          if (existingCart.data) {
+            if (cart.products.length === 0) {
+              await userRequest.post(`/carts/delete/${existingCart.data._id}`, {});
+            } else {
+              await userRequest.post(`/carts/${existingCart.data._id}`, {
+                userId: currentUser._id,
+                products: cart.products.map((item) => ({
+                  productId: item._id,
+                  title: item.title,
+                  quantity: item.quantity,
+                  img: item.img,
+                  color: item.color,
+                  price: item.price,
+                  uid: item.uid,
+                })),
+              });
+            }
+          } else {
+            await userRequest.post("/carts", {
+              userId: currentUser._id,
+              products: cart.products.map((item) => ({
+                productId: item._id,
+                title: item.title,
+                quantity: item.quantity,
+                img: item.img,
+                color: item.color,
+                price: item.price,
+                uid: item.uid,
+              })),
+            });
+          }
+        } catch (error) {
+          console.log("Error handling click:", error);
+        }
+      };
+      handleClick();
+      handleLogout();
+    }
+  };
 
   return (
     <>
       <nav className="main-nav">
-       
-        <div className="logo" >
-        <Logo style={{ textShadow: " #eb116f 4px 4px ",fontSize:"40px", color:'#04e762'}}>VASCO.</Logo>
+        <div className="logo">
+          <Logo style={{ textShadow: "#eb116f 4px 4px", fontSize: "40px", color: "#04e762" }}>
+            VASCO.
+          </Logo>
         </div>
-
-        {/* 2nd menu part  */}
-        <div
-          className={
-            showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"
-          }>
+        <div className={showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"}>
           <ul>
             <li>
-              <NavLink  onClick={()=>click("/")} style={{color:"#04e762"}} to="/">Home</NavLink>
+              <NavLink onClick={() => history.push("/")} style={{ color: "#04e762" }} to="/">
+                Home
+              </NavLink>
+            </li>
+            {currentUser && (
+              <li>
+                <NavLink
+                  onClick={() => history.push(`/orders/find/${currentUser._id}`)}
+                  style={{ color: "#04e762" }}
+                  to={`/orders/find/${currentUser._id}`}
+                >
+                  My Orders
+                </NavLink>
+              </li>
+            )}
+            <li>
+              <NavLink onClick={() => history.push("/login")} style={{ color: "#04e762" }} to="/login">
+                Login
+              </NavLink>
             </li>
             <li>
-              <NavLink onClick={()=>click("/login")} style={{color:"#04e762"}} to="/login">Login</NavLink>
+              <NavLink onClick={() => history.push("/register")} style={{ color: "#04e762" }} to="/register">
+                Register
+              </NavLink>
             </li>
             <li>
-              <NavLink onClick={()=>click("/register")} style={{color:"#04e762"}} to="/register">Register</NavLink>
-            </li>
-            <li>
-              <Link  style={{color:"#04e762"}} to="/cart">
-             <Badge badgeContent={quantity} color="info"> 
-             <ShoppingCartOutlined style={{fontSize:"25px"}}/>
-           </Badge>
+              <Link style={{ color: "#04e762" }} to="/cart">
+                <Badge badgeContent={quantity} color="info">
+                  <ShoppingCartOutlined style={{ fontSize: "25px" }} />
+                </Badge>
               </Link>
             </li>
-            <li>
-          <button  style={ {backgroundColor:'black',color:'#04e762',border:'solid #04e762',padding:"5px"}} onClick={()=>manage() }>Logout</button>
-          </li>
-          <li><Avatar style={{height: '60px', width: '60px',border:"solid gray 2px" }} src={img} /></li>
+            {currentUser && (
+              <li>
+                <Button onClick={manage}>Logout</Button>
+              </li>
+            )}
           </ul>
         </div>
-
         <div className="social-media">
           <ul className="social-media-desktop">
             <li>
-          
-          <SearchContainer>
-            <Input placeholder="Search" />
-            <Search style={{ color: "#04e762", fontSize: 16 }} />
-          </SearchContainer>
-          </li>
-          <li style={{ color: "#04e762"}}>EN</li>
-         
+              <SearchContainer>
+                <Input placeholder="Search" value={searchQuery} onChange={handleSearchChange} />
+                <Search style={{ color: "#04e762", fontSize: 16, marginRight: "5px" }} />
+                {searchResults.length > 0 && (
+                  <SearchResults>
+                    {searchResults.map((result, index) => (
+                      <SearchResultItem
+                        key={index}
+                        onClick={() => handleResultClick(result._id)}
+                      >
+                        <img src={result.img} alt="Product" />
+                        <span>{result.title.slice(0, 40) + "..."}</span>
+                      </SearchResultItem>
+                    ))}
+                  </SearchResults>
+                )}
+              </SearchContainer>
+            </li>
+            <li>
+              <Avatar style={{ height: "60px", width: "60px", border: "solid gray 2px", margin: "25px" }} src={img} />
+            </li>
           </ul>
           <div className="hamburger-menu">
             <a href="#" onClick={() => setShowMediaIcons(!showMediaIcons)}>
-              <GiHamburgerMenu style={{color:"#04e762"}} />
+              <GiHamburgerMenu style={{ color: "#04e762" }} />
             </a>
           </div>
         </div>
       </nav>
-
-      
     </>
   );
 };
