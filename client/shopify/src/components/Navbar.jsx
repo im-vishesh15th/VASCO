@@ -272,7 +272,7 @@ const Navbar = () => {
             {currentUser ? (
               <li>
                 <NavLink onClick={manage} to="/" className="nav_link">
-                Login
+                Logout
               </NavLink>
               </li>
             ) :
@@ -285,7 +285,7 @@ const Navbar = () => {
               {!currentUser &&
               <li>
               <NavLink onClick={() => history.push("/register")}  className="nav_link" to="/register">
-                Register
+                SignUp
               </NavLink>
               </li>
                }
