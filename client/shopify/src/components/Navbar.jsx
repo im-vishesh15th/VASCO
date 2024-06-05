@@ -11,45 +11,51 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/apiCalls";
 import { userRequest } from "../requestMethods";
 
-const Container = styled.div`
-  height: 60px;
-  margin-bottom: 20px;
-  ${mobile({ height: "50px" })}
-`;
+// const Container = styled.div`
+//   height: 60px;
+//   margin-bottom: 20px;
+//   ${mobile({ height: "50px" })}
+// `;
 
-const Wrapper = styled.div`
-  background-color: black;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  ${mobile({ padding: "10px 0px" })}
-`;
+// const Wrapper = styled.div`
+//   background-color: black;
+//   padding: 10px 20px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   ${mobile({ padding: "10px 0px" })}
+// `;
 
-const Left = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-`;
+// const Left = styled.div`
+//   flex: 1;
+//   display: flex;
+//   align-items: center;
+// `;
 
-const Language = styled.span`
-  font-size: 14px;
-  cursor: pointer;
-  ${mobile({ display: "none" })}
-`;
 
 const SearchContainer = styled.div`
   position: relative;
-  border: 1px solid #04e762;
+  border: 2px solid #04e762;
   display: flex;
   align-items: center;
-  margin-left: 25px;
+  margin-right: 150px;
+  
   padding: 5px;
   width: auto;
   min-height: 35px;
   height: auto;
   min-width: 200px;
   border-radius: 25px;
+  transition: all 0.4s ease-in-out;
+
+
+  &:hover {
+    min-width: 250px;
+    transition: all 0.4s ease-in-out;
+    border: 4px solid #04e762;
+    min-height:50px;
+  }
+
   `;
 
 const Input = styled.input`
@@ -63,8 +69,23 @@ const Input = styled.input`
   border-radius: 25px;
   margin-right:5px;
   padding: 10px;
+  transition: all 0.4s ease-in-out;
+  font-size:15px;
   
   ${mobile({ width: "50px" })}
+
+  &:hover {
+    min-width: 250px;
+    transition: all 0.4s ease-in-out;
+    min-height: 50px;
+    font-size:20px;
+   
+  }
+&:focus{
+outline:none;
+}
+
+
 `;
 
 const SearchResults = styled.div`
@@ -78,6 +99,7 @@ const SearchResults = styled.div`
   margin-top: 23px;
   margin-left:0px;
   border-radius: 25px;
+  border:1px black solid;
 `;
 
 const SearchResultItem = styled.div`
@@ -85,7 +107,7 @@ const SearchResultItem = styled.div`
   align-items: center;
   padding: 10px;
   border-radius: 25px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid black;
   cursor: pointer;
 
   &:hover {
@@ -101,53 +123,13 @@ const SearchResultItem = styled.div`
   }
 `;
 
-const Center = styled.div`
-  flex: 1;
-  text-align: center;
-`;
+
 
 const Logo = styled.h1`
   font-weight: bold;
+  margin-right:30px;
+
   ${mobile({ fontSize: "24px" })}
-`;
-
-const Right = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  ${mobile({ flex: 2, justifyContent: "center" })}
-`;
-
-const MenuItem = styled.div`
-  background-color: black;
-  height: 10px;
-  border-radius: 20%;
-  font-size: 14px;
-  cursor: pointer;
-  margin-left: 25px;
-  padding: 30px;
-  text-align: center;
-  &:hover {
-    background-color: #04e762;
-  }
-  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
-`;
-
-const Button = styled.button`
-  padding: 10px 10px;
-  font-size: 1.8rem;
-  color: #04e762;
-  background-color: transparent;
-  border: 2px solid #fff;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  &:hover {
-    background-color: #3b3838;
-    color: #ff0059;
-  }
-  ${mobile({ fontSize: "1.2rem", padding: "10px 30px" })}
 `;
 
 const Navbar = () => {
@@ -160,7 +142,7 @@ const Navbar = () => {
   const [showMediaIcons, setShowMediaIcons] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
 
   const handleSearch = async (query) => {
     try {
@@ -249,52 +231,10 @@ const Navbar = () => {
         </div>
         <div className={showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"}>
           <ul>
-            <li>
-              <NavLink onClick={() => history.push("/")} style={{ color: "#04e762" }} to="/">
-                Home
-              </NavLink>
-            </li>
-            {currentUser && (
-              <li>
-                <NavLink
-                  onClick={() => history.push(`/orders/find/${currentUser._id}`)}
-                  style={{ color: "#04e762" }}
-                  to={`/orders/find/${currentUser._id}`}
-                >
-                  My Orders
-                </NavLink>
-              </li>
-            )}
-            <li>
-              <NavLink onClick={() => history.push("/login")} style={{ color: "#04e762" }} to="/login">
-                Login
-              </NavLink>
-            </li>
-            <li>
-              <NavLink onClick={() => history.push("/register")} style={{ color: "#04e762" }} to="/register">
-                Register
-              </NavLink>
-            </li>
-            <li>
-              <Link style={{ color: "#04e762" }} to="/cart">
-                <Badge badgeContent={quantity} color="info">
-                  <ShoppingCartOutlined style={{ fontSize: "25px" }} />
-                </Badge>
-              </Link>
-            </li>
-            {currentUser && (
-              <li>
-                <Button onClick={manage}>Logout</Button>
-              </li>
-            )}
-          </ul>
-        </div>
-        <div className="social-media">
-          <ul className="social-media-desktop">
-            <li>
+          <li>
               <SearchContainer>
                 <Input placeholder="Search" value={searchQuery} onChange={handleSearchChange} />
-                <Search style={{ color: "#04e762", fontSize: 16, marginRight: "5px" }} />
+                <Search style={{ color: "#04e762", fontSize: 16 ,marginRight:"5px"}} />
                 {searchResults.length > 0 && (
                   <SearchResults>
                     {searchResults.map((result, index) => (
@@ -303,7 +243,7 @@ const Navbar = () => {
                         onClick={() => handleResultClick(result._id)}
                       >
                         <img src={result.img} alt="Product" />
-                        <span>{result.title.slice(0, 40) + "..."}</span>
+                        <span>{result.title.slice(0, 80) + "..."}</span>
                       </SearchResultItem>
                     ))}
                   </SearchResults>
@@ -311,7 +251,58 @@ const Navbar = () => {
               </SearchContainer>
             </li>
             <li>
-              <Avatar style={{ height: "60px", width: "60px", border: "solid gray 2px", margin: "25px" }} src={img} />
+              
+              <NavLink onClick={() => history.push("/")}  className="nav_link" to="/">
+                Home
+              </NavLink>
+            </li>
+            {currentUser && (
+              <li>
+                <NavLink
+                  onClick={() => history.push(`/orders/find/${currentUser._id}`)}
+                  
+                  to={`/orders/find/${currentUser._id}`}
+                  className="nav_link"
+                >
+                  Orders
+                </NavLink>
+              </li>
+            )}
+            <li>
+            {currentUser ? (
+              <li>
+                <NavLink onClick={manage} to="/" className="nav_link">
+                Login
+              </NavLink>
+              </li>
+            ) :
+              <NavLink onClick={() => history.push("/login")}  to="/login" className="nav_link">
+                Login
+              </NavLink>
+              } 
+            </li>
+            
+              {!currentUser &&
+              <li>
+              <NavLink onClick={() => history.push("/register")}  className="nav_link" to="/register">
+                Register
+              </NavLink>
+              </li>
+               }
+            
+            <li>
+              <Link to="/cart">
+                <Badge badgeContent={quantity} color="info">
+                  <ShoppingCartOutlined style={{ fontSize: "30px", fontWeight:"bold",padding:"1px" }} />
+                </Badge>
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className="social-media">
+          <ul className="social-media-desktop">
+            <li>
+              <Avatar style={{ height: "60px", width: "60px", border: "solid gray 2px", margin: "20px" }} src={img} />
             </li>
           </ul>
           <div className="hamburger-menu">
