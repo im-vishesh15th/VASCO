@@ -47,7 +47,9 @@ const ReviewsContainer = styled.div`
   padding: 10px;
   border: 1px solid #e0e0e0; // Optional: add a border to visually separate the reviews
   border-radius: 10px;
-  margin: 20px; // Optional: add some margin to separate it from other elements
+  width:50vw;
+  margin: 30px; // Optional: add some margin to separate it from other elements
+  
 `;
 
 
@@ -249,13 +251,14 @@ const Product = () => {
             </AmountContainer>
             <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
-          <ReviewForm productId={id} onReviewSubmitted={handleReviewSubmitted} />
-          <ReviewsContainer>
-            <Reviews reviews={reviews} />
-          </ReviewsContainer>
+          
         </InfoContainer>
 
       </Wrapper>
+      <ReviewForm productId={id} onReviewSubmitted={handleReviewSubmitted} />
+          <ReviewsContainer>
+            <Reviews reviews={reviews} />
+          </ReviewsContainer>
       <Newsletter />
       <Footer />
     </Container>
