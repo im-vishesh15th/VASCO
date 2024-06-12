@@ -38,6 +38,14 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
+router.get("/ping", async (req, res) => {
+  try {
+    res.status(200).json();
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch Backend" });
+  }
+});
+
 // GET ALL USERS
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;
