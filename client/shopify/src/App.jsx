@@ -15,7 +15,7 @@ import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Fail from "./pages/Fail";
-
+import { BackendProvider } from "./redux/BackendContext";
 
 
 const App = () => {
@@ -25,7 +25,7 @@ const App = () => {
   const user = useSelector((state) => state.user.currentUser);
   
   return (
-    
+    <BackendProvider>
      <BrowserRouter>
         <Switch>
           <Route exact path="/">
@@ -58,6 +58,7 @@ const App = () => {
           
         </Switch>
         </BrowserRouter>
+        </BackendProvider>
      
    
   );
