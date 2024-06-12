@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { publicRequest } from '../requestMethods';
 import LoadingPage from '../components/LoadingPage';
+import Navbar from '../components/Navbar';
+import Announcement from '../components/Announcement';
 
 const BackendContext = createContext();
 
@@ -27,7 +29,7 @@ export const BackendProvider = ({ children }) => {
 
   return (
     <BackendContext.Provider value={{ isConnected }}>
-      {isConnected ? children : <LoadingPage />}
+      {isConnected ? children : <><Announcement/><Navbar/><LoadingPage /></>}
     </BackendContext.Provider>
   );
 };
