@@ -3,8 +3,6 @@ import {
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
-import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
@@ -29,14 +27,14 @@ const Info = styled.div`
 const Container = styled.div`
   flex: 1;
   margin: 5px;
-  min-width: 280px;
- 
+  min-width: 400px;
+ border: solid black;
 
-  height: 350px;
+  height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5fbfd;
+  background-color: #ffffff;
   position: relative;
  border-radius: 10%;
   &:hover ${Info}{
@@ -45,24 +43,29 @@ const Container = styled.div`
 `;
 
 const Circle = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius:50%;
+  width: 350px;
+  height: 450px;
+  border-radius:25px;
   background-color: white;
   position: absolute;
+  display: flex;
+  justify-content:center;
 `;
 
 const Image = styled.img`
-  height: 75%;
+  height: 450px;
+  width:350px;
   z-index: 2;
   object-fit:contain;
+  
+  
   
   
 `;
 
 const Icon = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background-color: white;
   display: flex;
@@ -86,8 +89,9 @@ const Product = ({ item }) => {
 
   return (
     <Container>
-      <Circle />
+      <Circle >
       <Image src={item.img} />
+      </Circle>
       <Info>
        
         <Icon>
