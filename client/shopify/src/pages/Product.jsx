@@ -212,8 +212,9 @@ const Product = () => {
 
   return (
     <Container>
-      <Navbar />
       <Announcement />
+      <Navbar />
+     
       <Wrapper>
         <ImgContainer>
           <Image src={product.img} />
