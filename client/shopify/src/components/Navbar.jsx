@@ -11,26 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/apiCalls";
 import { userRequest } from "../requestMethods";
 
-// const Container = styled.div`
-//   height: 60px;
-//   margin-bottom: 20px;
-//   ${mobile({ height: "50px" })}
-// `;
-
-// const Wrapper = styled.div`
-//   background-color: black;
-//   padding: 10px 20px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   ${mobile({ padding: "10px 0px" })}
-// `;
-
-// const Left = styled.div`
-//   flex: 1;
-//   display: flex;
-//   align-items: center;
-// `;
 
 
 const SearchContainer = styled.div`
@@ -50,10 +30,31 @@ const SearchContainer = styled.div`
 
 
   &:hover {
-    min-width: 250px;
+    min-width: 200px;
+    transition: all 0.3s ease-in-out;
+    border: 4px solid #04e762;
+    min-height:50px;
+  }
+
+  @media (max-width: 1200px) {
+
+
+    margin-right: 20px;
+  
+  padding: 5px;
+  width: auto;
+  min-height: 20px;
+  height: auto;
+  min-width: 100px;
+  border-radius: 25px;
+  transition: all 0.4s ease-in-out;
+
+    &:hover {
+    min-width: 10px;
     transition: all 0.4s ease-in-out;
     border: 4px solid #04e762;
     min-height:50px;
+  }
   }
 
   `;
@@ -72,9 +73,9 @@ const Input = styled.input`
   transition: all 0.4s ease-in-out;
   font-size:15px;
   
-  ${mobile({ width: "50px" })}
+  
 
-  &:hover {
+  &:focus {
     min-width: 250px;
     transition: all 0.4s ease-in-out;
     min-height: 50px;
@@ -84,6 +85,26 @@ const Input = styled.input`
 &:focus{
 outline:none;
 }
+
+@media (max-width: 1200px) {
+  width: auto;
+  min-width: 100px;
+  min-height: 20px;
+  height: auto;
+  margin-right:5px;
+  padding: 10px;
+  transition: all 0.4s ease-in-out;
+  font-size:10px;
+
+
+  &:focus {
+    min-width: 10px;
+    transition: all 0.4s ease-in-out;
+    min-height: 3px;
+    font-size:12px;
+   
+  }
+  }
 
 
 `;
@@ -142,7 +163,7 @@ const Navbar = () => {
   const [showMediaIcons, setShowMediaIcons] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  
+
 
   const handleSearch = async (query) => {
     try {
@@ -231,10 +252,10 @@ const Navbar = () => {
         </div>
         <div className={showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"}>
           <ul>
-          <li>
+            <li>
               <SearchContainer>
                 <Input placeholder="Search" value={searchQuery} onChange={handleSearchChange} />
-                <Search style={{ color: "#04e762", fontSize: 16 ,marginRight:"5px"}} />
+                <Search style={{ color: "#04e762", fontSize: 16, marginRight: "5px" }} />
                 {searchResults.length > 0 && (
                   <SearchResults>
                     {searchResults.map((result, index) => (
@@ -251,8 +272,8 @@ const Navbar = () => {
               </SearchContainer>
             </li>
             <li>
-              
-              <NavLink onClick={() => history.push("/")}  className="nav_link" to="/">
+
+              <NavLink onClick={() => history.push("/")} className="nav_link" to="/">
                 Home
               </NavLink>
             </li>
@@ -260,7 +281,7 @@ const Navbar = () => {
               <li>
                 <NavLink
                   onClick={() => history.push(`/orders/find/${currentUser._id}`)}
-                  
+
                   to={`/orders/find/${currentUser._id}`}
                   className="nav_link"
                 >
@@ -268,32 +289,34 @@ const Navbar = () => {
                 </NavLink>
               </li>
             )}
+
+            {!currentUser &&
+              <li>
+                <NavLink onClick={() => history.push("/register")} className="nav_link" to="/register">
+                  SignUp
+                </NavLink>
+              </li>
+            }
             <li>
-            {currentUser ? (
-              <li>
+              {currentUser ? (
+
                 <NavLink onClick={manage} to="/" className="nav_link">
-                Logout
-              </NavLink>
-              </li>
-            ) :
-              <NavLink onClick={() => history.push("/login")}  to="/login" className="nav_link">
-                Login
-              </NavLink>
-              } 
+                  Logout
+                </NavLink>
+
+              ) :
+                <NavLink onClick={() => history.push("/login")} to="/login" className="nav_link">
+                  Login
+                </NavLink>
+              }
             </li>
-            
-              {!currentUser &&
-              <li>
-              <NavLink onClick={() => history.push("/register")}  className="nav_link" to="/register">
-                SignUp
-              </NavLink>
-              </li>
-               }
-            
+
+
+
             <li>
               <Link to="/cart">
                 <Badge badgeContent={quantity} color="info">
-                  <ShoppingCartOutlined style={{ fontSize: "30px", fontWeight:"bold",padding:"1px" }} />
+                  <ShoppingCartOutlined style={{ fontSize: "30px", fontWeight: "bold", padding: "1px" }} />
                 </Badge>
               </Link>
             </li>
