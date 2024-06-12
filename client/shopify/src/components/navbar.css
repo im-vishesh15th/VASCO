@@ -320,6 +320,37 @@ li {
     height: 6rem;
   }
 
+
+
+  .menu-link ul li a {
+    text-transform: capitalize;
+    color: #04e762;
+    font-size: 1rem;
+    transition: 0.5s;
+    margin: 2px;
+    background-color: black;
+    border: 0px solid #1a1a1a;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    padding: 10px 10px;
+
+  }
+
+  .menu-link ul li:hover>a {
+    transform-origin: right;
+    color: #ff0059;
+    font-size: 1.3rem;
+    text-decoration: underline;
+    background-color: #04e763e0;
+    font-weight: 900;
+    transition: all 0.1s ease-in-out;
+    
+
+  }
+
+
+
   .social-media {
     height: 6rem;
     display: flex;
