@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Announcement = () => {
-  return <Container><marquee scrollamount="10" >Super Deal! Free Shipping on Orders Over $75</marquee></Container>;
+  return <Container><marquee scrollamount="10" >📣 Super Deal! Free Shipping on Orders Over $75 📣</marquee></Container>;
 };
 
 export default Announcement;
