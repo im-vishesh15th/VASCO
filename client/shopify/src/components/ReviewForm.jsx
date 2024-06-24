@@ -13,7 +13,8 @@ const Container = styled.div`
   border-radius: 10px;
   padding: 20px;
   margin: 30px;
-  width:50vw;
+  max-width:80vw;
+  min-width: 50vw;
 `;
 
 const Title = styled.h2`
