@@ -28,30 +28,33 @@ const Wrapper = styled.div`
 
 const ImgContainer = styled.div`
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Image = styled.img`
-  width: 50vw;
-  height: 80vh;
-  object-fit: fill;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
   border-radius: 20px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
   @media (max-width: 978px) {
-    width: 70vw;
-    height: 70vh;
+    max-width: 70vw;
+    height: auto;
   }
 `;
-const ReviewsContainer = styled.div`
-  max-height: 500px; // Set a fixed height
-  overflow-y: auto; // Enable vertical scrolling
-  padding: 10px;
-  border: 1px solid #e0e0e0; // Optional: add a border to visually separate the reviews
-  border-radius: 10px;
-  width:50vw;
-  margin: 30px; // Optional: add some margin to separate it from other elements
-  
-`;
 
+const ReviewsContainer = styled.div`
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  width: 100%;
+  margin: 30px 0;
+`;
 
 const InfoContainer = styled.div`
   flex: 1;
@@ -118,7 +121,7 @@ const AddContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({ width: "100%" })}
+  ${mobile({ width: "100%", flexDirection: "column", alignItems: "flex-start" })}
 `;
 
 const AmountContainer = styled.div`
@@ -144,6 +147,7 @@ const Button = styled.button`
   background-color: white;
   cursor: pointer;
   font-weight: 500;
+  margin-top: 10px;
 
   &:hover {
     background-color: #f8f4f4;
@@ -202,8 +206,7 @@ const Product = () => {
 
   const handleClick = async () => {
     try {
-      const uid = crypto.randomUUID();
-
+      const uid = uuidv4();
       dispatch(addProduct({ ...product, quantity, color, size, uid }));
     } catch (err) {
       console.error(err);
@@ -214,7 +217,7 @@ const Product = () => {
     <Container>
       <Announcement />
       <Navbar />
-     
+
       <Wrapper>
         <ImgContainer>
           <Image src={product.img} />
@@ -252,14 +255,12 @@ const Product = () => {
             </AmountContainer>
             <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
-          
         </InfoContainer>
-
       </Wrapper>
       <ReviewForm productId={id} onReviewSubmitted={handleReviewSubmitted} />
-          <ReviewsContainer>
-            <Reviews reviews={reviews} />
-          </ReviewsContainer>
+      <ReviewsContainer>
+        <Reviews reviews={reviews} />
+      </ReviewsContainer>
       <Newsletter />
       <Footer />
     </Container>
