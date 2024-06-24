@@ -95,7 +95,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { isFetching,error } = useSelector((state) => state.user);
+  const { isFetching ,error} = useSelector((state) => state.user);
   const history = useHistory();
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -103,7 +103,7 @@ const Login = () => {
     e.preventDefault();
     const payload = { username, password };
     login(dispatch, payload);
-    
+   
     setErrorMessage(error);
   };
 
@@ -128,7 +128,7 @@ const Login = () => {
             {isFetching ? "Logging in..." : "LOGIN"}
           </Button>
           {errorMessage && <Error>{errorMessage}</Error>}
-          <Link href="#">Forgot your password?</Link>
+          <Link href="#"   onClick={() => history.push("/forgotOtp")}>Forgot your password?</Link>
           <Link href="#" onClick={() => history.push("/register")}>
             Create a new account
           </Link>
