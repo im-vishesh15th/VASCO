@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
+import ForgotPassword from "./pages/ForgotPassword";
 import {
   BrowserRouter,
   Switch,
@@ -12,6 +13,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import Success from "./pages/Success";
+import ResetPassword from "./pages/ResetPassword";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Fail from "./pages/Fail";
@@ -48,6 +50,12 @@ const App = () => {
           </Route>
           <Route path="/success">
             <Success />
+          </Route>
+          <Route path="/resetPassword">
+            <ResetPassword />
+          </Route>
+          <Route path="/forgotOtp">
+            <ForgotPassword />
           </Route>
           <Route path="/login">
             {user ? <Redirect to="/" /> : <Login />}
