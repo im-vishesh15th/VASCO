@@ -18,12 +18,29 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Fail from "./pages/Fail";
 import { BackendProvider } from "./redux/BackendContext";
+import { useIdleTimer } from "react-idle-timer";
 
 
 const App = () => {
+
+  
   useEffect(() => {
     document.title = 'VASCO-UI'; // Set the initial title when the component mounts
   }, []);
+
+   const handleOnIdle = () => {
+      console.log('User is idle');
+
+      // Actions to perform when the user is idle
+      localStorage.clear();
+      window.location.href = '/login';
+  };
+
+  useIdleTimer({
+      timeout: 1000 * 60 * 90 , // 15 minutes
+      onIdle: handleOnIdle,
+      debounce: 500
+  });
   const user = useSelector((state) => state.user.currentUser);
   
   return (
