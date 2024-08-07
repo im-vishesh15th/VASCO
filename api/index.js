@@ -22,6 +22,9 @@ mongoose
 
 app.use(cors());
 app.use(express.json());
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK' });
+});
 app.use("/api/auth", authRoute);
 app.use("/api/reviews",reviewRoute);
 app.use("/api/users", userRoute);
