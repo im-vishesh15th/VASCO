@@ -9,7 +9,8 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartRedux";
 import { v4 as uuidv4 } from 'uuid';
 import Typography from '@mui/material/Typography';
-
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useState } from "react";
 
 const Info = styled.div`
   opacity: 0;
@@ -111,6 +112,7 @@ const Product = ({ item }) => {
   console.log("item=",item);
   const dispatch = useDispatch();
  const history= useHistory();
+ const[click,setClick]=useState(false)
   const manage = ()=>{
    history.push(`/product/${item._id}`);
    window.location.reload();
@@ -144,9 +146,14 @@ const Product = ({ item }) => {
           <SearchOutlined />
 
         </Icon>
-        <Icon>
+        {!click ?
+        <Icon onClick={()=>setClick(!click)}>
           <FavoriteBorderOutlined />
-        </Icon>
+        </Icon> :
+        <Icon onClick={()=>setClick(!click)}>
+        <FavoriteIcon  />
+      </Icon>
+}
       
       </Info>
       <Info2>
