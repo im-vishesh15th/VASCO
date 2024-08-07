@@ -5,14 +5,18 @@ import {
 } from "@mui/icons-material";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/cartRedux";
+import { v4 as uuidv4 } from 'uuid';
+import Typography from '@mui/material/Typography';
 
 
 const Info = styled.div`
   opacity: 0;
   width: 100%;
-  height: 100%;
+  height: 50%;
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 3;
@@ -24,11 +28,32 @@ const Info = styled.div`
   border-radius: 10%;
 `;
 
+const Info2 = styled.div`
+  opacity: 0;
+  width: 50%;
+  height: 10%;
+  position: absolute;
+  top: 10px;
+  left: auto;
+  background-color: #000000;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 1s ease;
+  cursor: pointer;
+  border-radius: 25px;
+  &:hover {
+    background-color: #00757568;
+    transform: scale(1.1);
+  }
+`;
+
 const Container = styled.div`
   flex: 1;
   margin: 5px;
   min-width: 400px;
- border: solid black;
+ border: 2px solid black;
 
   height: 500px;
   display: flex;
@@ -38,6 +63,9 @@ const Container = styled.div`
   position: relative;
  border-radius: 10%;
   &:hover ${Info}{
+    opacity: 1;
+  }
+  &:hover ${Info2}{
     opacity: 1;
   }
 `;
@@ -80,21 +108,35 @@ const Icon = styled.div`
 `;
 
 const Product = ({ item }) => {
+  console.log("item=",item);
+  const dispatch = useDispatch();
  const history= useHistory();
   const manage = ()=>{
    history.push(`/product/${item._id}`);
    window.location.reload();
 
   };
+  const handleClick = async () => {
+    try {
+      const uid = uuidv4();
+      dispatch(addProduct({ ...item, quantity:1, color:item.color[0], size:item.size[0], uid }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
+    <>
     <Container>
       <Circle >
       <Image src={item.img} />
+     
       </Circle>
+      
       <Info>
+     
        
-        <Icon>
+        <Icon onClick={()=>handleClick()}>
           <ShoppingCartOutlined />
         </Icon>
         <Icon onClick={()=>manage()}>
@@ -105,9 +147,18 @@ const Product = ({ item }) => {
         <Icon>
           <FavoriteBorderOutlined />
         </Icon>
-        
+      
       </Info>
+      <Info2>
+      <Typography variant="subtitle1" sx={{ fontSize: '2rem', zIndex: "3",color:'white' }} >
+              ${item.price}
+            </Typography>
+         </Info2>
+      
+      
     </Container>
+    
+     </>
   );
 };
 
