@@ -158,7 +158,7 @@ router.post("/login", async (req, res) => {
     const accessToken = jwt.sign(
       { id: user._id.ObjectId, isAdmin: user.isAdmin },
       "vishesh",
-      { expiresIn: "3d" }
+      { expiresIn: "2h" }
     );
 
     // Exclude password from response
