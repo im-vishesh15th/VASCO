@@ -15,6 +15,7 @@ const Container = styled.div`
   background-size: cover;
 `;
 
+
 const Wrapper = styled.div`
   width: 90%;
   max-width: 400px;
