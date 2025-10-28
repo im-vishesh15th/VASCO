@@ -122,7 +122,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://vasco-14r1.onrender.com/api/auth/register",
+        "https://vasco-acp9.onrender.com/api/auth/register",
         userData
       );
       console.log("Res=" + response);

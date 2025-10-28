@@ -74,7 +74,7 @@ const Register = () => {
     try {
       console.log("pp=",product);
       const response = await axios.post(
-        "https://vasco-2.onrender.com/api/auth/register",
+        "https://vasco-acp9.onrender.com/api/auth/register",
         product
       );
 
